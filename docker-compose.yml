@@ -8,6 +8,12 @@ services:
       MYSQL_USER: "${MYSQL_USER}"
       MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
       MYSQL_RANDOM_ROOT_PASSWORD: "true"
+    healthcheck:
+      test: mysqladmin ping -h mysql -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
     volumes:
       - type: volume
         source: mysqlDB

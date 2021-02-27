@@ -13,7 +13,7 @@ services:
           target: /var/lib/mysql
     networks:
       app_net:
-        ipv4_address: ${APP_IP}
+        ipv4_address: ${MYSQL_IP}
 
 volumes:
   mysqlDB:

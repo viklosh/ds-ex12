@@ -26,10 +26,16 @@ services:
         app42.paas.db.password: "${MYSQL_PASSWORD}"
         app42.paas.db.name: "${MYSQL_DATABASE}"
     image: viklosh/simpapp
-    
+    volumes: 
+      - type: volume
+        source: app
+        target: /usr/local/tomcat/webapps
+    networks:
+      app_net:
 
 
 volumes:
   mysqlDB:
+  app:
 networks: 
   app_net:

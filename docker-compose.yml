@@ -7,6 +7,8 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    networks:
+      app_net:
+        ipv4_address: ${APP_IP}
 networks: 
   app_net:
-      

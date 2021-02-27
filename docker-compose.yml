@@ -14,6 +14,20 @@ services:
         target: /var/lib/mysql
     networks:
       app_net:
+  
+  app:
+    build: 
+      context: .
+      dockerfile: app.Dockerfile
+      args:
+        app42.paas.db.ip: mssql
+        app42.paas.db.port: "${MYSQL_PORT}"
+        app42.paas.db.username: "${MYSQL_USER}"
+        app42.paas.db.password: "${MYSQL_PASSWORD}"
+        app42.paas.db.name: "${MYSQL_DATABASE}"
+    image: viklosh/simpapp
+    
+
 
 volumes:
   mysqlDB:

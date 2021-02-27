@@ -1,6 +1,6 @@
 FROM maven:3.6.3-jdk-8-slim as maven_builder
 
-ARG APP_IP
+ARG MYSQL_IP
 ARG MYSQL_PORT
 ARG MYSQL_USER
 ARG MYSQL_PASSWORD
@@ -14,7 +14,7 @@ WORKDIR /app
 
 SHELL ["/bin/bash", "-c"]
 
-RUN echo -e "app42.paas.db.ip = ${APP_IP}"\
+RUN echo -e "app42.paas.db.ip = ${MYSQL_IP}"\
          "\napp42.paas.db.port = ${MYSQL_PORT}"\
          "\napp42.paas.db.username = ${MYSQL_USER}"\
          "\napp42.paas.db.password = ${MYSQL_PASSWORD}"\

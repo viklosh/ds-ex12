@@ -1,21 +1,51 @@
 version: "3.7"
 services: 
 
-  mssql:
+  mysql:
     image: mysql:8.0
     environment: 
       MYSQL_DATABASE: "${MYSQL_DATABASE}"
       MYSQL_USER: "${MYSQL_USER}"
       MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
       MYSQL_RANDOM_ROOT_PASSWORD: "true"
+    healthcheck:
+      test: mysqladmin ping -h mysql -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
     volumes:
       - type: volume
         source: mysqlDB
         target: /var/lib/mysql
     networks:
       app_net:
+  
+  app:
+    build: 
+      context: .
+      dockerfile: app.Dockerfile
+      args:
+        APP_IP: mssql
+        MYSQL_PORT: "${MYSQL_PORT}"
+        MYSQL_USER: "${MYSQL_USER}"
+        MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+        MYSQL_DATABASE: "${MYSQL_DATABASE}"
+    image: viklosh/simpapp
+    volumes: 
+      - type: volume
+        source: app
+        target: /usr/local/tomcat/webapps
+    ports: 
+      - 8080:8080
+    depends_on: 
+      - mysql
+    networks:
+      app_net:
+
 
 volumes:
   mysqlDB:
+  app:
 networks: 
   app_net:

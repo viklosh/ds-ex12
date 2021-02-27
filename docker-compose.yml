@@ -1,7 +1,7 @@
 version: "3.7"
 services: 
 
-  mssql:
+  mysql:
     image: mysql:8.0
     environment: 
       MYSQL_DATABASE: "${MYSQL_DATABASE}"
@@ -20,11 +20,11 @@ services:
       context: .
       dockerfile: app.Dockerfile
       args:
-        app42.paas.db.ip: mssql
-        app42.paas.db.port: "${MYSQL_PORT}"
-        app42.paas.db.username: "${MYSQL_USER}"
-        app42.paas.db.password: "${MYSQL_PASSWORD}"
-        app42.paas.db.name: "${MYSQL_DATABASE}"
+        APP_IP: mssql
+        MYSQL_PORT: "${MYSQL_PORT}"
+        MYSQL_USER: "${MYSQL_USER}"
+        MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+        MYSQL_DATABASE: "${MYSQL_DATABASE}"
     image: viklosh/simpapp
     volumes: 
       - type: volume
